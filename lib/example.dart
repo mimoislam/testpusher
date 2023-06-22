@@ -11,16 +11,18 @@ void connectToPusher() async {
   PusherChannelsPackageLogger.enableLogs();
   // Create an instance PusherChannelsOptions
   // The test options can be accessed from test.pusher.com (using only for test purposes)
-  const testOptions = PusherChannelsOptions.fromCluster(
+  const testOptions = PusherChannelsOptions.fromHost(
     scheme: 'ws',
-    cluster: '',
     host: EVENT_URL,
     key: PUSHER_KEY,
     port: 6002,
   );
+  print(testOptions.uri.toString());
+
   // Create an instance of PusherChannelsClient
   final client = PusherChannelsClient.websocket(
     options: testOptions,
+
     // Connection exceptions are handled here
     connectionErrorHandler: (exception, trace, refresh) async {
 
@@ -108,11 +110,5 @@ void connectToPusher() async {
   // If you no longer need the client - cancel the connection subscription and dispose it.
 
   // Somewhere in future
-  // await Future.delayed(const Duration(seconds: 5));
-  // await connectionSubs.cancel();
-  // // Consider canceling the event subscriptions to
-  // for (final subscription in allEventSubs) {
-  //   subscription?.cancel();
-  // }
-  // client.dispose();
+
 }

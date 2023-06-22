@@ -1,7 +1,5 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:pusher_client/pusher_client.dart';
 import 'package:testpusher/example.dart';
 
 void main() {
@@ -60,7 +58,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 //
 //   void _incrementCounter() async {
 //     const String PUSHER_KEY = '987654';
@@ -118,62 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //       _counter++;
 //     });
 //   }
-  void _incrementCounter() async {
-    const String PUSHER_KEY = '987654';
-//const String PUSHER_KEY_NO = '736BBB3684CB60B98CE111DCB50A8EA83C0FF65960E128B7567DBD6EB95B6DED';
-    const String AUTH_URL = 'http://185.98.137.138:83/api/broadcasting/auth';
-    const String EVENT_URL = '185.98.137.138';
 
-    PusherOptions options = PusherOptions(
-      host: EVENT_URL,
-      wsPort: 6002,
-      encrypted: false,
-      auth: PusherAuth(
-        AUTH_URL,
-        headers: {
-                  'Authorization': 'Bearer 1450|n7hGCzTphZRplYP6Xv4YayvwXqiNiRYSLR7K7fVs',
-        },
-      ),
-    );
-
-    PusherClient pusher = PusherClient(PUSHER_KEY, options, enableLogging: true,);
-    pusher.onConnectionStateChange((state) {
-      log("previousState: ${state!.previousState}, currentState: ${state.currentState}");
-    });
-
-    pusher.onConnectionError((error) {
-      log(error!.message!);
-      log(error.exception!);
-      log(error.code!);
-    });
-    // Echo echoEvent=  Echo(
-    //   client: pusher,
-    //   broadcaster: EchoBroadcasterType.Pusher,
-    // );
-    var idClient=51;
-    // pusher.subscribe("private-App.User.$idClient").((e)  {
-    //   print("$e");
-    //
-    // });
-    pusher.subscribe("private-client.$idClient").bind("App\\Events\\V1\\RecetteShared", (e) {
-      log("$e");
-    });
-    // pusher.subscribe("public").bind("V1.UserActivated", (e) {
-    //   log("$e");
-    // });
-    // Future.delayed(Duration(seconds: 10),(){
-    //   pusher.disconnect();
-    //
-    // });
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
 
   @override
@@ -202,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              'sss',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
@@ -216,12 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  onConnectionStateChange(String currentState, String previousState) {
-      print(
-          "previousState: $previousState, currentState: $currentState");
 
-
-  }
   // void connectToPusher() {
   //   PusherChannelsFlutter pusher = PusherChannelsFlutter(
   //     cluster: 'your_pusher_cluster',
